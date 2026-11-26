@@ -1,0 +1,7 @@
+# Phase ulterieure : temps reel (WebSocket) et taches planifiees
+-r requirements.txt
+channels>=4.2
+daphne>=4.1
+channels-redis>=4.2
+celery>=5.5
+redis>=5.2

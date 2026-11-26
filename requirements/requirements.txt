@@ -1,0 +1,27 @@
+# Network Manager - dependances de production (backend)
+
+# 1. Socle (app accounts)
+Django>=5.2
+djangorestframework>=3.16
+argon2-cffi>=23.1
+django-environ>=0.12       # lecture du fichier .env
+
+# 2. API et documentation
+django-filter>=25.1
+drf-spectacular>=0.28
+django-cors-headers>=4.7      # seulement si React est servi depuis une autre origine
+
+# 3. Sondes et supervision
+icmplib>=3.0                  # ping, avec repli sur TCP
+httpx>=0.28                   # controles HTTP/HTTPS, Telegram, webhooks
+dnspython>=2.7                # controle DNS
+psutil>=7.0                   # metriques CPU, RAM, disque, trafic de l'hote
+paramiko>=3.5                 # SSH : metriques et actions distantes (optionnel)
+
+# 4. Secrets
+cryptography>=44              # chiffrement Fernet des secrets en base
+
+# 5. Production
+gunicorn>=23                  # WSGI (utiliser uvicorn ou daphne si WebSocket)
+whitenoise>=6.9               # statiques de l'admin si pas de Nginx
+# psycopg[binary]>=3.2        # decommenter si PostgreSQL

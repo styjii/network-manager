@@ -14,14 +14,15 @@ from pathlib import Path
 
 import environ
 
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 env = environ.Env(
     DJANGO_DEBUG=(bool, False),
     DJANGO_ALLOWED_HOSTS=(list, []),
-    DATABASE_URL=(str, "sqlite:///db.sqlite3"),
+    DJANGO_CSRF_TRUSTED_ORIGINS=(list, []),
+    NM_TRUSTED_PROXIES=(list, []),
+    DATABASE_URL=(str, f"sqlite:///{BASE_DIR / 'db.sqlite3'}"),
 )
 environ.Env.read_env(BASE_DIR / ".env")
 
@@ -36,6 +37,10 @@ DEBUG = env("DJANGO_DEBUG")
 
 ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS")
 
+# Accès via le réseau local : renseigner les origines réelles (ex. http://192.168.43.45:8000),
+# sinon Django répond « CSRF verification failed » dès que l'on quitte localhost.
+CSRF_TRUSTED_ORIGINS = env.list("DJANGO_CSRF_TRUSTED_ORIGINS")
+
 
 # Application definition
 
@@ -46,9 +51,9 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "rest_framework",
     "accounts",
     "alerts",
-    "config",
     "history",
     "inventory",
     "monitoring",
@@ -93,6 +98,17 @@ DATABASES = {
 }
 
 
+# Utilisateur personnalisé (rôle applicatif, verrouillage de compte)
+
+AUTH_USER_MODEL = "accounts.User"
+
+# Argon2 en premier (cahier des charges, section 8.1) ; PBKDF2 reste lisible pour d'anciens hachages.
+PASSWORD_HASHERS = [
+    "django.contrib.auth.hashers.Argon2PasswordHasher",
+    "django.contrib.auth.hashers.PBKDF2PasswordHasher",
+]
+
+
 # Password validation
 # https://docs.djangoproject.com/en/6.1/ref/settings/#auth-password-validators
 
@@ -115,9 +131,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/6.1/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "fr"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "Indian/Antananarivo"
 
 USE_I18N = True
 
@@ -128,6 +144,22 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.1/howto/static-files/
 
 STATIC_URL = "static/"
+
+
+# Django REST framework : tout est refusé par défaut (RolePermission), sessions + CSRF
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": ["accounts.authentication.SessionAuthentication401"],
+    "DEFAULT_PERMISSION_CLASSES": ["accounts.permissions.RolePermission"],
+    "DEFAULT_PAGINATION_CLASS": "accounts.pagination.StandardPagination",
+    "EXCEPTION_HANDLER": "accounts.exceptions.api_exception_handler",
+    "DEFAULT_THROTTLE_RATES": {"login": "10/min"},
+}
+
+# Network Manager : verrouillage de compte et proxy de confiance (Nginx)
+NM_LOGIN_MAX_ATTEMPTS = env.int("NM_LOGIN_MAX_ATTEMPTS", default=5)
+NM_LOGIN_LOCK_MINUTES = env.int("NM_LOGIN_LOCK_MINUTES", default=15)
+NM_TRUSTED_PROXIES = env.list("NM_TRUSTED_PROXIES")
 
 
 # Email

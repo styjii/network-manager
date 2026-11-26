@@ -1,0 +1,14 @@
+[tool.ruff]
+line-length = 160
+target-version = "py312"
+extend-exclude = ["**/migrations/*"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP"]
+
+[tool.pyright]
+include = ["accounts", "config", "alerts", "history", "inventory", "monitoring", "settings_app"]
+exclude = ["**/migrations", "**/__pycache__"]
+pythonVersion = "3.12"
+# Les classes Meta de Django/DRF redéfinissent toujours celles du parent : faux positif connu.
+reportIncompatibleVariableOverride = false
