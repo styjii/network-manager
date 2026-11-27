@@ -1,0 +1,101 @@
+/* Jetons de design relevés sur les maquettes (thème sombre) ; le thème clair redéfinit les mêmes variables. */
+:root,
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --bg: #061226;
+  --bg-top: #020f22;
+  --sidebar: #08152b;
+  --surface: #0b1b36;
+  --surface-2: #0f2344;
+  --surface-3: #13294f;
+  --border: #173562;
+  --border-soft: #10264a;
+  --text: #e8f0ff;
+  --text-strong: #ffffff;
+  --muted: #93a7ca;
+  --accent: #19d3f3;
+  --primary: #0b4dff;
+  --primary-hover: #2a63ff;
+  --primary-soft: rgba(27, 108, 255, 0.18);
+  --nav-active: #0a4bf0;
+  --subnav-active: #0a2f9c;
+  --success: #25d58a;
+  --success-soft: rgba(37, 213, 138, 0.14);
+  --warning: #f5a524;
+  --warning-soft: rgba(245, 165, 36, 0.14);
+  --danger: #ff5468;
+  --danger-soft: rgba(255, 84, 104, 0.14);
+  --info-soft: rgba(45, 140, 255, 0.14);
+  --track: #14284b;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  --glow: 0 0 0 1px rgba(45, 140, 255, 0.25), 0 0 28px rgba(27, 108, 255, 0.12);
+  --scrim: rgba(2, 8, 20, 0.7);
+
+  --tone-blue: #2d8cff;
+  --tone-green: #25d58a;
+  --tone-purple: #a176ff;
+  --tone-orange: #f5a524;
+  --tone-red: #ff5468;
+  --tone-slate: #8da2c9;
+  --tone-cyan: #19d3f3;
+  --tone-blue-bg: rgba(30, 110, 255, 0.2);
+  --tone-green-bg: rgba(37, 213, 138, 0.16);
+  --tone-purple-bg: rgba(139, 92, 246, 0.22);
+  --tone-orange-bg: rgba(245, 165, 36, 0.16);
+  --tone-red-bg: rgba(255, 84, 104, 0.16);
+  --tone-slate-bg: rgba(141, 162, 201, 0.16);
+  --tone-cyan-bg: rgba(25, 211, 243, 0.14);
+
+  --sidebar-w: 248px;
+  --topbar-h: 76px;
+  --radius: 14px;
+  --radius-sm: 10px;
+  --font: 'Roboto', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+  --bg: #eef3fb;
+  --bg-top: #e6eefa;
+  --sidebar: #ffffff;
+  --surface: #ffffff;
+  --surface-2: #f2f6fd;
+  --surface-3: #e8eefa;
+  --border: #cfdaee;
+  --border-soft: #e0e8f6;
+  --text: #17233d;
+  --text-strong: #0b1530;
+  --muted: #566b8f;
+  --accent: #0a7fa0;
+  --primary: #1456f0;
+  --primary-hover: #0a43cc;
+  --primary-soft: rgba(20, 86, 240, 0.1);
+  --nav-active: #1456f0;
+  --subnav-active: #dbe7ff;
+  --success: #0b8a57;
+  --success-soft: rgba(11, 138, 87, 0.12);
+  --warning: #a8620a;
+  --warning-soft: rgba(245, 165, 36, 0.18);
+  --danger: #c5283d;
+  --danger-soft: rgba(197, 40, 61, 0.1);
+  --info-soft: rgba(20, 86, 240, 0.08);
+  --track: #e3eaf7;
+  --shadow: 0 8px 24px rgba(30, 55, 100, 0.12);
+  --glow: 0 0 0 1px rgba(20, 86, 240, 0.12), 0 6px 20px rgba(30, 55, 100, 0.08);
+  --scrim: rgba(20, 30, 55, 0.45);
+
+  --tone-blue: #1456f0;
+  --tone-green: #0b8a57;
+  --tone-purple: #6d3fd6;
+  --tone-orange: #a8620a;
+  --tone-red: #c5283d;
+  --tone-slate: #4d6288;
+  --tone-cyan: #0a7fa0;
+  --tone-blue-bg: rgba(20, 86, 240, 0.1);
+  --tone-green-bg: rgba(11, 138, 87, 0.12);
+  --tone-purple-bg: rgba(109, 63, 214, 0.12);
+  --tone-orange-bg: rgba(245, 165, 36, 0.2);
+  --tone-red-bg: rgba(197, 40, 61, 0.1);
+  --tone-slate-bg: rgba(77, 98, 136, 0.12);
+  --tone-cyan-bg: rgba(10, 127, 160, 0.12);
+}
